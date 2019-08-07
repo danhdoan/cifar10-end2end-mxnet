@@ -25,12 +25,3 @@ data/
 # vim swap file
 *.sw[onp]
 
-# image/video files
-*.avi
-*.mp4
-*.jpg
-*.JPG
-*.png
-*.PNG
-*.jpeg
-*.JPEG
