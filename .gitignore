@@ -6,9 +6,6 @@
 *.pkl
 *.pth
 
-# symbol link to models directory
-models
-
 
 # vscode folder
 .vscode/
