@@ -43,7 +43,7 @@ def show_images(images, nrows, ncols, titles=None, scale=1.5):
             ax.set_title(titles[i])
 
 
-def plot(X, Y, xlabel=None, ylabel=None, fmts=None, legend=[],
+def plot(X, Y, title=None, xlabel=None, ylabel=None, fmts=None, legend=[],
         xlim=None, ylim=None, xscale='linear', yscale='linear',
         figsize=(6, 4)):
     """Plot 2D graph"""
@@ -63,11 +63,12 @@ def plot(X, Y, xlabel=None, ylabel=None, fmts=None, legend=[],
 
         axes.plot(x, y, fmt)
 
-    set_axes(axes, xlabel, ylabel, legend, xlim, ylim, xscale, yscale)
+    set_axes(axes, title, xlabel, ylabel, legend, xlim, ylim, xscale, yscale)
 
 
-def set_axes(axes, xlabel, ylabel, legend, xlim, ylim, xscale, yscale):
+def set_axes(axes, title, xlabel, ylabel, legend, xlim, ylim, xscale, yscale):
     """Set attributes to figure"""
+    axes.set_title(title)
     axes.set_xlabel(xlabel)
     axes.set_ylabel(ylabel)
 
@@ -88,7 +89,7 @@ def set_axes(axes, xlabel, ylabel, legend, xlim, ylim, xscale, yscale):
 class Animator():
     """Animator class"""
 
-    def __init__(self, xlabel=None, ylabel=None, legend=[],
+    def __init__(self, title=None, xlabel=None, ylabel=None, legend=[],
                 xlim=None, ylim=None,
                 xscale='linear', yscale='linear',
                 fmts=None,
@@ -98,7 +99,7 @@ class Animator():
         if nrows * ncols == 1: self.axes = [self.axes]
         
         self.config_axes = lambda : set_axes(
-            self.axes[0], xlabel, ylabel, legend,
+            self.axes[0], title, xlabel, ylabel, legend,
             xlim, ylim, xscale, yscale)
         self.X, self.Y, self.fmts = None, None, fmts
         
@@ -133,3 +134,13 @@ class Animator():
         
         display.display(self.fig)
         display.clear_output(wait=True)
+        
+    def savefig(self, save_path='figure.png'):
+        """Save plot
+        
+        Parameters
+        ----------
+            save_path : str
+                path to save plot
+        """
+        self.fig.savefig(save_path)

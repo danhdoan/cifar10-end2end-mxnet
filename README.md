@@ -10,25 +10,22 @@ This repository serves my purpose of implementing and experiencing different mod
 ## Current Results
 |Architecture | Model | Accuracy|
 |--|--|--|
-| VGG | VGG11 | 95.68% |
-|| VGG13 | 95.06% |
-|| VGG16 | 94.32% |
-|| VGG19 | 90.66% |
-|ResNet | ResNet18 | 91.12% |
-|| ResNet34 | 99.35% |
-|| ResNet50 | 98.66% |
-|| ResNet101 | 99.11% |
-|| ResNet152 | 99.35% |
-|AlexNet| AlexNet | 99.99% |
+| VGG | VGG11 | % |
+|| VGG13 | % |
+|| VGG16 | % |
+|| VGG19 | % |
+|ResNet | ResNet18 | % |
+|| ResNet34 | % |
+|| ResNet50 | % |
+|| ResNet101 | % |
+|| ResNet152 | % |
+|AlexNet| AlexNet | 87.31% |
 
 ## Training History
-* VGG11:
+* AlexNet:
 
-![VGG11](history/vgg11-95.68.png)
+![AlexNet](history/alexnet-acc-0.8731.png)
 
-* ResNet152:
-
-![ResNet152](history/resnet152-99.35.png)
 
 ## Latest Updates
 * 2019, Aug 8:
@@ -40,12 +37,13 @@ This repository serves my purpose of implementing and experiencing different mod
 	* Implement and Test with all **VGG** architectures [[paper]](https://arxiv.org/abs/1409.1556)
 
 ## Installation
-* Install MXNet framework
+* Install MXNet framework and GluonCV toolkit
 	* For CPU only:
 	
-		`pip install mxnet`
+		`pip install mxnet gluoncv`
 	
 	* For GPUs
 		
-		`pip install mxnet-cu90`
+		`pip install mxnet-cu90 gluoncv`
+    	> Change to match with CUDA version. `mxnet-cu100` if CUDA 10.0 is installed
 	
