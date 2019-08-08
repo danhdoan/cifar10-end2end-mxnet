@@ -19,6 +19,7 @@ This repository serves my purpose of implementing and experiencing different mod
 || ResNet50 | 98.66% |
 || ResNet101 | 99.11% |
 || ResNet152 | 99.35% |
+|AlexNet| AlexNet | 99.99% |
 
 ## Training History
 * VGG11:
@@ -32,6 +33,7 @@ This repository serves my purpose of implementing and experiencing different mod
 ## Latest Updates
 * 2019, Aug 8:
   * Implement and Test with all **ResNet** architectures [[paper]](https://arxiv.org/abs/1512.03385)
+  * Implement and Test with all **AlexNet** architectures [[paper]](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
 
 * 2019, Aug 7:
 	* Set up the training and test program
