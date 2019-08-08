@@ -27,9 +27,9 @@ class VGG(nn.HybridBlock):
         super(VGG, self).__init__(**kwargs)
 
         self.features = _make_features(arch)
-        self.features.add(nn.Dense(1024, activation='relu'))
+        self.features.add(nn.Dense(2048, activation='relu'))
         self.features.add(nn.Dropout(rate=0.5))
-        self.features.add(nn.Dense(1024, activation='relu'))
+        self.features.add(nn.Dense(2048, activation='relu'))
         self.features.add(nn.Dropout(rate=0.5))
 
         self.output = nn.Dense(nclasses)

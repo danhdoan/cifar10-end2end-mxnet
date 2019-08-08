@@ -7,24 +7,32 @@ This repository serves my purpose of implementing and experiencing different mod
 
 > When conducting experiment with CNN architectures, I use the same training parameters to draw a comparison between various CNNs. To efficiently utilize each network, experiment with another training parameters.
 
+All networks are trained end-to-end and are implemented from scratch. 
+Besides, Batch Normalization and Drop Out layers are applied whenever possible
+to increase the Accuracy and avoid Overfitting.
+
 ## Current Results
-|Architecture | Model | Accuracy|
-|--|--|--|
-| VGG | VGG11 | % |
-|| VGG13 | % |
-|| VGG16 | % |
-|| VGG19 | % |
-|ResNet | ResNet18 | % |
-|| ResNet34 | % |
-|| ResNet50 | % |
-|| ResNet101 | % |
-|| ResNet152 | % |
-|AlexNet| AlexNet | 87.31% |
+|Architecture | Model     | Accuracy|
+|-------------|-----------|---------|
+| VGG         | VGG11     | 88.13%  |
+|             | VGG13     | 90.50%  |
+|             | VGG16     | 89.61%  |
+|             | VGG19     | 89.80% |
+|ResNet       | ResNet18  | % |
+|             | ResNet34  | % |
+|             | ResNet50  | % |
+|             | ResNet101 | % |
+|             | ResNet152 | % |
+|AlexNet      | AlexNet   | 87.31% |
 
 ## Training History
 * AlexNet:
 
 ![AlexNet](history/alexnet-acc-0.8731.png)
+
+* VGG13
+
+![VGG13](history/vgg13-acc-0.9050.png)
 
 
 ## Latest Updates
