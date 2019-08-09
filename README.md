@@ -14,10 +14,10 @@ to increase the Accuracy and avoid Overfitting.
 ## Current Results
 |Architecture | Model     | Accuracy|
 |-------------|-----------|---------|
-| VGG         | VGG11     | %  |
-|             | VGG13     | %  |
-|             | VGG16     | %  |
-|             | VGG19     | %  |
+| VGG         | VGG11     | 91.43%  |
+|             | VGG13     | 93.48%  |
+|             | VGG16     | 92.71%  |
+|             | VGG19     | 92.22%  |
 | ResNet      | ResNet18  | %  |
 |             | ResNet34  | % |
 |             | ResNet50  | % |
@@ -30,6 +30,9 @@ to increase the Accuracy and avoid Overfitting.
 
 ![AlexNet](history/alexnet-acc-0.8834.png)
 
+* VGG13:
+
+![VGG13](history/vgg13-acc-0.9348.png)
 
 ## Latest Updates
 * 2019, Aug 8:
