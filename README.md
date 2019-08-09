@@ -20,7 +20,7 @@ to increase the Accuracy and avoid Overfitting.
 |             | VGG19     | 92.22%  |
 | ResNet      | ResNet18  | 92.58%  |
 |             | ResNet34  | 92.69%  |
-|             | ResNet50  | % |
+|             | ResNet50  | 91.73%  |
 |             | ResNet101 | % |
 |             | ResNet152 | % |
 |AlexNet      | AlexNet   | 88.34%  |
@@ -44,13 +44,13 @@ to increase the Accuracy and avoid Overfitting.
 	* Implement and Test with all **VGG** architectures [[paper]](https://arxiv.org/abs/1409.1556)
 
 ## Installation
-* Install MXNet framework
+* Install MXNet framework and GluonCV toolkit
 	* For CPU only:
 	
-		`pip install mxnet`
+		`pip install mxnet gluoncv`
 	
 	* For GPUs
 		
-		`pip install mxnet-cu90`
+		`pip install mxnet-cu90 gluoncv`
     	> Change to match with CUDA version. `mxnet-cu100` if CUDA 10.0 is installed
 	
