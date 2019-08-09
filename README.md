@@ -1,4 +1,4 @@
-# CIFAR10-End2End
+# CIFAR10-End2End-MXNet
 
 By Danh Doan
 
@@ -14,25 +14,21 @@ to increase the Accuracy and avoid Overfitting.
 ## Current Results
 |Architecture | Model     | Accuracy|
 |-------------|-----------|---------|
-| VGG         | VGG11     | 88.13%  |
-|             | VGG13     | 90.50%  |
-|             | VGG16     | 89.61%  |
-|             | VGG19     | 89.80% |
-|ResNet       | ResNet18  | % |
+| VGG         | VGG11     | %  |
+|             | VGG13     | %  |
+|             | VGG16     | %  |
+|             | VGG19     | %  |
+| ResNet      | ResNet18  | %  |
 |             | ResNet34  | % |
 |             | ResNet50  | % |
 |             | ResNet101 | % |
 |             | ResNet152 | % |
-|AlexNet      | AlexNet   | 87.31% |
+|AlexNet      | AlexNet   | 88.34%  |
 
 ## Training History
 * AlexNet:
 
-![AlexNet](history/alexnet-acc-0.8731.png)
-
-* VGG13
-
-![VGG13](history/vgg13-acc-0.9050.png)
+![AlexNet](history/alexnet-acc-0.8834.png)
 
 
 ## Latest Updates
@@ -45,13 +41,13 @@ to increase the Accuracy and avoid Overfitting.
 	* Implement and Test with all **VGG** architectures [[paper]](https://arxiv.org/abs/1409.1556)
 
 ## Installation
-* Install MXNet framework and GluonCV toolkit
+* Install MXNet framework
 	* For CPU only:
 	
-		`pip install mxnet gluoncv`
+		`pip install mxnet`
 	
 	* For GPUs
 		
-		`pip install mxnet-cu90 gluoncv`
+		`pip install mxnet-cu90`
     	> Change to match with CUDA version. `mxnet-cu100` if CUDA 10.0 is installed
 	

@@ -24,10 +24,10 @@ CIFAR_CLASSES = ('airplane', 'automobile', 'bird', 'cat', 'deer',
 # =============================================================================
 # TRAINING PARAMETERS
 # =============================================================================
-BATCH_SIZE = 128 
+BATCH_SIZE = 64 
 
 LR = 0.1
-LR_DECAY_FACTOR = 0.5
+LR_DECAY_FACTOR = 0.1
 WD = 0.0005
 MOMENTUM = 0.9
-NEPOCHS = 50
+NEPOCHS = 100
