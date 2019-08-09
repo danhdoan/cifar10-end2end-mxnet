@@ -18,8 +18,8 @@ to increase the Accuracy and avoid Overfitting.
 |             | VGG13     | 93.48%  |
 |             | VGG16     | 92.71%  |
 |             | VGG19     | 92.22%  |
-| ResNet      | ResNet18  | %  |
-|             | ResNet34  | % |
+| ResNet      | ResNet18  | 92.58%  |
+|             | ResNet34  | 92.69%  |
 |             | ResNet50  | % |
 |             | ResNet101 | % |
 |             | ResNet152 | % |

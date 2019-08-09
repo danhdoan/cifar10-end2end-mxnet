@@ -79,7 +79,7 @@ def _make_layer(block, nblocks, nchannels, strides, in_channels):
 def get_resnet(block, layers, channels, nclasses):
     net = nn.HybridSequential()
 
-    net.add(nn.Conv2D(16, kernel_size=3, strides=1, padding=1),
+    net.add(nn.Conv2D(64, kernel_size=3, strides=1, padding=1),
             nn.BatchNorm(),
             nn.Activation('relu'),
             nn.MaxPool2D(pool_size=3, strides=2, padding=1))
@@ -97,11 +97,11 @@ def get_resnet(block, layers, channels, nclasses):
 
 
 resnet_archs = {
-    18:  [BasicBlock, [2, 2, 2, 2],  [16, 16, 32, 64, 128]],
-    34:  [BasicBlock, [3, 4, 6, 3],  [16, 16, 32, 64, 128]],
-    50:  [BottleNeck, [3, 4, 6, 3],  [16, 64, 128, 256, 512]],
-    101: [BottleNeck, [3, 4, 23, 3], [16, 64, 128, 256, 512]],
-    152: [BottleNeck, [3, 8, 36, 3], [16, 64, 128, 256, 512]]
+    18:  [BasicBlock, [2, 2, 2, 2],  [64,  64, 128,  256,  512]],
+    34:  [BasicBlock, [3, 4, 6, 3],  [64,  64, 128,  256,  512]],
+    50:  [BottleNeck, [3, 4, 6, 3],  [64, 256, 512, 1024, 2048]],
+    101: [BottleNeck, [3, 4, 23, 3], [64, 256, 512, 1024, 2048]],
+    152: [BottleNeck, [3, 8, 36, 3], [64, 256, 512, 1024, 2048]]
 }
 
 
