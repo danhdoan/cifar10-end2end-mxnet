@@ -12,18 +12,23 @@ Besides, Batch Normalization and Drop Out layers are applied whenever possible
 to increase the Accuracy and avoid Overfitting.
 
 ## Current Results
-|Architecture | Model     | Accuracy|
-|-------------|-----------|---------|
-| VGG         | VGG11     | 91.43%  |
-|             | VGG13     | 93.48%  |
-|             | VGG16     | 92.71%  |
-|             | VGG19     | 92.22%  |
-| ResNet      | ResNet18  | 92.58%  |
-|             | ResNet34  | 92.69%  |
-|             | ResNet50  | 91.73%  |
-|             | ResNet101 | % |
-|             | ResNet152 | % |
-|AlexNet      | AlexNet   | 88.34%  |
+|Architecture | Model       | Accuracy|
+|-------------|-------------|---------|
+| AlexNet     | AlexNet     | 88.34%  |
+| VGG         | VGG11       | 91.43%  |
+|             | VGG13       | 93.48%  |
+|             | VGG16       | 92.71%  |
+|             | VGG19       | 92.22%  |
+| ResNet      | ResNet18    | 92.58%  |
+|             | ResNet34    | 92.69%  |
+|             | ResNet50    | 91.73%  |
+|             | ResNet101   | 91.12%  |
+|             | ResNet152   | 90.73%  |
+| DenseNet    | DenseNet121 | %  |
+|             | DenseNet161 | %  |
+|             | DenseNet169 | %  |
+|             | DenseNet201 | %  |
+
 
 ## Training History
 * AlexNet:
@@ -33,6 +38,11 @@ to increase the Accuracy and avoid Overfitting.
 * VGG13:
 
 ![VGG13](history/vgg13-acc-0.9348.png)
+
+* ResNet34:
+
+![ResNet34](history/resnet34-acc-0.9269.png)
+
 
 ## Latest Updates
 * 2019, Aug 8:
