@@ -7,7 +7,7 @@ from mxnet import nd
 from mxnet.gluon import nn
 
 
- def _make_dense_layer(growth_rate, bn_size):
+def _make_dense_layer(growth_rate, bn_size):
     layer = nn.HybridSequential()
 
     layer.add(
@@ -32,10 +32,10 @@ class DenseBlock(nn.HybridBlock):
             self.features.add(_make_dense_layer(growth_rate, bn_size))
 
 
-    def forward(self, F, X):
+    def hybrid_forward(self, F, X):
         for layer in self.features:
             y = layer(X)
-            X = nd.concat(X, y, dim=1)
+            X = F.concat(X, y, dim=1)
 
         return y
 
@@ -62,7 +62,7 @@ class DenseNet(nn.HybridBlock):
 
         # add first CONV layer
         self.features.add(nn.Conv2D(nin_channels, kernel_size=7,
-                                   strides=2, padding=3, use_bias=False))
+                                   strides=1, padding=3, use_bias=False))
         self.features.add(nn.BatchNorm())
         self.features.add(nn.Activation('relu'))
 
@@ -81,12 +81,12 @@ class DenseNet(nn.HybridBlock):
 
         self.features.add(nn.BatchNorm())
         self.features.add(nn.Activation('relu'))
-        self.features.add(nn.AvgPool2D(pool_size=3))
+        self.features.add(nn.AvgPool2D(pool_size=2))
 
         self.output = nn.Dense(nclasses)
 
 
-    def forward(self, F, X):
+    def hybrid_forward(self, F, X):
         X = self.features(X)
         X = self.output(X)
 
@@ -102,16 +102,16 @@ densenet_archs = {
 
 
 def DenseNet121(nclasses):
-    return DenseNet(*densenet_arches[121], nclasses)
+    return DenseNet(*densenet_archs[121], nclasses)
 
 
 def DenseNet161(nclasses):
-    return DenseNet(*densenet_arches[161], nclasses)
+    return DenseNet(*densenet_archs[161], nclasses)
 
 
 def DenseNet169(nclasses):
-    return DenseNet(*densenet_arches[169], nclasses)
+    return DenseNet(*densenet_archs[169], nclasses)
 
 
 def DenseNet201(nclasses):
-    return DenseNet(*densenet_arches[201], nclasses)
+    return DenseNet(*densenet_archs[201], nclasses)

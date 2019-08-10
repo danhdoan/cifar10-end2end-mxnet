@@ -24,10 +24,10 @@ to increase the Accuracy and avoid Overfitting.
 |             | ResNet50    | 91.73%  |
 |             | ResNet101   | 91.12%  |
 |             | ResNet152   | 90.73%  |
-| DenseNet    | DenseNet121 | %  |
-|             | DenseNet161 | %  |
-|             | DenseNet169 | %  |
-|             | DenseNet201 | %  |
+| DenseNet    | DenseNet121 | 91.67%  |
+|             | DenseNet161 | 92.50%  |
+|             | DenseNet169 | 92.26%  |
+|             | DenseNet201 | 92.04%  |
 
 
 ## Training History
@@ -43,8 +43,15 @@ to increase the Accuracy and avoid Overfitting.
 
 ![ResNet34](history/resnet34-acc-0.9269.png)
 
+* DenseNet161:
+
+![DenseNet161](history/densenet161-acc-0.9250.png)
+
 
 ## Latest Updates
+* 2019, Aug 10:
+  * Implement and Test with all DenseNet architectures [[paper]](https://arxiv.org/abs/1608.06993)
+
 * 2019, Aug 8:
   * Implement and Test with all **ResNet** architectures [[paper]](https://arxiv.org/abs/1512.03385)
   * Implement and Test with all **AlexNet** architectures [[paper]](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)

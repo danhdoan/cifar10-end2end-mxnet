@@ -1,11 +1,23 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 # ## 1. Import Necessary Modules
+
+# In[1]:
+
+
 import os
+
+get_ipython().run_line_magic('matplotlib', 'inline')
 import matplotlib.pyplot as plt
 
 from altusi import utils
 import altusi.utils.visualizer as vis
 import altusi.configs.config as cfg
 from altusi.utils.logger import *
+
+
+# In[2]:
 
 
 import numpy as np
@@ -19,6 +31,10 @@ from gluoncv.data import transforms as gcv_transforms
 # ## 2. Prepare Data
 
 # ### 2.1 Define Data Transformers
+
+# In[3]:
+
+
 train_transformer = transforms.Compose([
     gcv_transforms.RandomCrop(cfg.IMAGE_SIZE, pad=4),
     transforms.RandomFlipLeftRight(),
@@ -35,13 +51,29 @@ LOG(INFO, 'Data Transformers defining done')
 
 
 # ### 2.2 Load Dataset
+
+# In[4]:
+
+
 train_dataset = CIFAR10(train=True)
 test_dataset = CIFAR10(train=False)
 
 LOG(INFO, 'Dataset loading done')
 
 
+# In[ ]:
+
+
+X, y = train_dataset[:10]
+
+vis.show_images(X, 1, 10, titles=[cfg.CIFAR_CLASSES[cls] for cls in y])
+
+
 # ### 2.3 Define Data Loaders
+
+# In[ ]:
+
+
 BATCH_SIZE = cfg.BATCH_SIZE
 
 train_loader = gluon.data.DataLoader(
@@ -61,30 +93,65 @@ LOG(INFO, 'Data Loaders defining done')
 
 
 # ## 3. Setup Training System
+
+# In[ ]:
+
+
+from altusi.models import AlexNet
 from altusi.models import VGG11, VGG13, VGG16, VGG19
 from altusi.models import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
-from altusi.models import AlexNet
+from altusi.models import DenseNet121, DenseNet161, DenseNet169, DenseNet201
 
 # AlexNet architecture
-#net = AlexNet(nclasses=cfg.CIFAR_NCLASSES); model_name = 'AlexNet'
+# net = AlexNet(nclasses=cfg.CIFAR_NCLASSES); model_name = 'AlexNet'
 
 # VGG architectures
-#net = VGG11(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG11'
-#net = VGG13(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG13'
-#net = VGG16(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG16'
-#net = VGG19(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG19'
+# net = VGG11(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG11'
+# net = VGG13(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG13'
+# net = VGG16(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG16'
+# net = VGG19(nclasses=cfg.CIFAR_NCLASSES); model_name = 'VGG19'
 
 # ResNet architectures
-#net = ResNet18(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet18'
-#net = ResNet34(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet34'
-#net = ResNet50(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet50'
-#net = ResNet101(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet101'
-net = ResNet152(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet152'
+# net = ResNet18(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet18'
+# net = ResNet34(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet34'
+# net = ResNet50(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet50'
+# net = ResNet101(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet101'
+# net = ResNet152(nclasses=cfg.CIFAR_NCLASSES); model_name = 'ResNet152'
+
+# DenseNet architectures
+net = DenseNet121(nclasses=cfg.CIFAR_NCLASSES); model_name = 'DenseNet121'
+
 
 LOG(INFO, '{} Network setup done'.format(model_name))
 
+
+# In[ ]:
+
+
+net.hybridize()
+net.initialize()
+
+X = nd.random.uniform(shape=(1, 3, 32, 32))
+
+net(X)
+
+
+# In[ ]:
+
+
+net
+
+
+# In[ ]:
+
+
 ctx = context.gpu(0) if context.num_gpus() else context.cpu()
+
 LOG(INFO, 'Device in Use:', ctx)
+
+
+# In[ ]:
+
 
 criterion = gluon.loss.SoftmaxCrossEntropyLoss()
 optimizer = 'sgd'
@@ -102,6 +169,10 @@ LOG(INFO, 'Training system setup done')
 
 
 # ## 4. Training Procedure
+
+# In[ ]:
+
+
 def evaluate_accuracy_loss(net, loader, criterion, ctx):
     metric = mx.metric.Accuracy()
     loss = 0
@@ -118,6 +189,10 @@ def evaluate_accuracy_loss(net, loader, criterion, ctx):
         sample_cnt += X.shape[0]
         
     return metric.get(), loss / sample_cnt
+
+
+# In[ ]:
+
 
 animator = vis.Animator(
     title=model_name, xlabel='epoch',
@@ -184,3 +259,97 @@ LOG(INFO, 'Training Procedure done')
 
 
 # ## 5. Test Procedure
+
+# ### 5.1 Load Trained Model
+
+# In[ ]:
+
+
+# change to your trained models
+trained_model_name = 'alexnet-epoch-84-acc-0.8834.params'
+trained_model_name = 'vgg11-epoch-99-acc-0.9143.params'
+trained_model_name = 'vgg13-epoch-92-acc-0.9348.params'
+trained_model_name = 'vgg16-epoch-95-acc-0.9271.params'
+trained_model_name = 'vgg19-epoch-94-acc-0.9222.params'
+trained_model_name = 'resnet18-epoch-76-acc-0.9258.params'
+trained_model_name = 'resnet34-epoch-94-acc-0.9269.params'
+trained_model_name = 'resnet50-epoch-90-acc-0.9173.params'
+trained_model_name = 'resnet101-epoch-83-acc-0.9112.params'
+trained_model_name = 'resnet152-epoch-77-acc-0.9073.params'
+trained_model_path = os.path.join(cfg.CHECKPOINTS, trained_model_name)
+
+# AlexNet architecture
+#trained_net = AlexNet(nclasses=cfg.CIFAR_NCLASSES)
+
+# VGG architecture
+# trained_net = VGG11(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = VGG13(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = VGG16(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = VGG19(nclasses=cfg.CIFAR_NCLASSES)
+
+# ResNet architecture
+# trained_net = ResNet18(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet34(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet50(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet101(nclasses=cfg.CIFAR_NCLASSES)
+trained_net = ResNet152(nclasses=cfg.CIFAR_NCLASSES)
+
+# load network's parameter to specific hardware
+trained_net.load_parameters(trained_model_path, ctx=ctx)
+
+LOG(INFO, 'Training model loading done')
+
+
+# ### 5.2 Test with Random Images
+
+# In[ ]:
+
+
+for X, y in test_loader:
+    break
+
+rnd_idx = np.random.choice(BATCH_SIZE, 10, replace=False)
+
+
+# In[ ]:
+
+
+test_images = X[rnd_idx].as_in_context(ctx)
+y_hat = trained_net(test_images).argmax(axis=1).astype('int32').asnumpy()
+y_preds = [cfg.CIFAR_CLASSES[cls] for cls in y_hat]
+
+
+# In[ ]:
+
+
+_dataset = CIFAR10(train=False)
+_loader = gluon.data.DataLoader(test_dataset,
+                                batch_size=BATCH_SIZE,
+                                num_workers=4)
+
+for X, y in _loader:
+    break
+test_images = X[rnd_idx]
+
+
+# #### Results predicted by Trained Network
+
+# In[ ]:
+
+
+vis.show_images(test_images, 1, 10, y_preds)
+
+
+# #### Ground Truth from Dataset
+
+# In[ ]:
+
+
+vis.show_images(test_images, 1, 10, [cfg.CIFAR_CLASSES[cls] for cls in y[rnd_idx].asnumpy()])
+
+
+# In[ ]:
+
+
+
+
