@@ -28,6 +28,7 @@ to increase the Accuracy and avoid Overfitting.
 |             | DenseNet161 | 92.50%  |
 |             | DenseNet169 | 92.26%  |
 |             | DenseNet201 | 92.04%  |
+| GoogleNet   | GoogleNet   | 84.53%  |
 
 
 ## Training History
@@ -49,6 +50,9 @@ to increase the Accuracy and avoid Overfitting.
 
 
 ## Latest Updates
+* 2019, Aug 12:
+  * Implement and Test with all GoogleNet architectures [[paper]](https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf)
+
 * 2019, Aug 10:
   * Implement and Test with all DenseNet architectures [[paper]](https://arxiv.org/abs/1608.06993)
 
