@@ -28,7 +28,7 @@ to increase the Accuracy and avoid Overfitting.
 |             | DenseNet161 | 92.50%  |
 |             | DenseNet169 | 92.26%  |
 |             | DenseNet201 | 92.04%  |
-| GoogleNet   | GoogleNet   | 84.53%  |
+| GoogleNet   | GoogleNet   | 85.31%  |
 
 
 ## Training History

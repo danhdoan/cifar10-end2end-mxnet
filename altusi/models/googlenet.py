@@ -51,7 +51,8 @@ class GoogleNet(nn.HybridBlock):
 
         # layer 2
         self.features.add(nn.Conv2D(channels=64, kernel_size=1, activation='relu'))
-        self.features.add(nn.Conv2D(channels=192, kernel_size=3, activation='relu'))
+        self.features.add(nn.Conv2D(channels=192, kernel_size=3, 
+                                    padding=1, activation='relu'))
         self.features.add(nn.MaxPool2D(pool_size=3, strides=1, padding=1))
 
         # inception 3
