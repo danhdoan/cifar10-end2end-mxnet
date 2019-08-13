@@ -11,24 +11,30 @@ All networks are trained end-to-end and are implemented from scratch.
 Besides, Batch Normalization and Drop Out layers are applied whenever possible
 to increase the Accuracy and avoid Overfitting.
 
+## Learning Rate Scheduler
+  * Epoch [0, 40): LR = 0.1
+  * Epoch [40, 70): LR = 0.01
+  * Epoch [70, 100): LR = 0.001
+
+
 ## Current Results
-|Architecture | Model       | Accuracy|
-|-------------|-------------|---------|
-| AlexNet     | AlexNet     | 88.34%  |
-| VGG         | VGG11       | 91.43%  |
-|             | VGG13       | 93.48%  |
-|             | VGG16       | 92.71%  |
-|             | VGG19       | 92.22%  |
-| ResNet      | ResNet18    | 92.58%  |
-|             | ResNet34    | 92.69%  |
-|             | ResNet50    | 91.73%  |
-|             | ResNet101   | 91.12%  |
-|             | ResNet152   | 90.73%  |
-| DenseNet    | DenseNet121 | 91.67%  |
-|             | DenseNet161 | 92.50%  |
-|             | DenseNet169 | 92.26%  |
-|             | DenseNet201 | 92.04%  |
-| GoogleNet   | GoogleNet   | 85.31%  |
+|Architecture | Model       | Accuracy| # Params |
+|-------------|-------------|---------|----------|
+| AlexNet     | AlexNet     | 88.34%  | 27.31M   |
+| VGG         | VGG11       | 91.43%  | 14.50M   |
+|             | VGG13       | 93.48%  | 14.68M   |
+|             | VGG16       | 92.71%  | 20M      |
+|             | VGG19       | 92.22%  | 25.31M   |
+| ResNet      | ResNet18    | 92.58%  | 11.19M   |
+|             | ResNet34    | 92.69%  | 21.31M   |
+|             | ResNet50    | 91.73%  | 23.59M   |
+|             | ResNet101   | 91.12%  | 42.66M   |
+|             | ResNet152   | 90.73%  | 58.38M   |
+| DenseNet    | DenseNet121 | 91.67%  | 3.27M    |
+|             | DenseNet161 | 92.50%  | 12.30M   |
+|             | DenseNet169 | 92.26%  | 5.99M    |
+|             | DenseNet201 | 92.04%  | 8.5M     |
+| GoogleNet   | GoogleNet   | 85.31%  | 6.07M    |
 
 
 ## Training History
@@ -51,10 +57,10 @@ to increase the Accuracy and avoid Overfitting.
 
 ## Latest Updates
 * 2019, Aug 12:
-  * Implement and Test with all GoogleNet architectures [[paper]](https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf)
+  * Implement and Test with all **GoogleNet** architectures [[paper]](https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf)
 
 * 2019, Aug 10:
-  * Implement and Test with all DenseNet architectures [[paper]](https://arxiv.org/abs/1608.06993)
+  * Implement and Test with all **DenseNet** architectures [[paper]](https://arxiv.org/abs/1608.06993)
 
 * 2019, Aug 8:
   * Implement and Test with all **ResNet** architectures [[paper]](https://arxiv.org/abs/1512.03385)
