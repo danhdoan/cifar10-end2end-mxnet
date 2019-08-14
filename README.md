@@ -35,7 +35,7 @@ to increase the Accuracy and avoid Overfitting.
 |             | DenseNet169  | 92.26%  | 5.99M    |
 |             | DenseNet201  | 92.04%  | 8.5M     |
 | GoogleNet   | GoogleNet    | 85.31%  | 6.07M    |
-| Inception   | Inception V3 | 92.80%  | 19.33M   |
+| Inception   | Inception V3 | 92.87%  | 19.33M   |
 
 
 ## Training History
@@ -57,7 +57,7 @@ to increase the Accuracy and avoid Overfitting.
 
 * Inception-V3:
 
-![Inception-V3](history/inceptionv3-acc-0.9280.png)
+![Inception-V3](history/inceptionv3-acc-0.9287.png)
 
 
 ## Latest Updates
