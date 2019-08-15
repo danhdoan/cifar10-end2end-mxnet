@@ -25,8 +25,8 @@ to increase the Accuracy and avoid Overfitting.
 |             | VGG13        | 93.48%  | 14.68M   |
 |             | VGG16        | 92.71%  | 20M      |
 |             | VGG19        | 92.22%  | 25.31M   |
-| ResNet      | ResNet18     | 92.58%  | 11.19M   |
-|             | ResNet34     | 92.69%  | 21.31M   |
+| ResNet      | ResNet18     | 92.72%  | 11.19M   |
+|             | ResNet34     | 92.84%  | 21.31M   |
 |             | ResNet50     | 91.73%  | 23.59M   |
 |             | ResNet101    | 91.12%  | 42.66M   |
 |             | ResNet152    | 90.73%  | 58.38M   |
@@ -49,7 +49,7 @@ to increase the Accuracy and avoid Overfitting.
 
 * ResNet34:
 
-![ResNet34](history/resnet34-acc-0.9269.png)
+![ResNet34](history/resnet34-acc-0.9284.png)
 
 * DenseNet161:
 
