@@ -20,47 +20,46 @@ to increase the Accuracy and avoid Overfitting.
 ## Current Results
 |Architecture | Model        | Accuracy| # Params |
 |-------------|--------------|---------|----------|
-| AlexNet     | AlexNet      | 88.34%  | 27.31M   |
-| VGG         | VGG11        | 91.43%  | 14.50M   |
-|             | VGG13        | 93.48%  | 14.68M   |
-|             | VGG16        | 92.71%  | 20M      |
-|             | VGG19        | 92.22%  | 25.31M   |
-| ResNet      | ResNet18     | 92.72%  | 11.19M   |
-|             | ResNet34     | 92.84%  | 21.31M   |
-|             | ResNet50     | 91.73%  | 23.59M   |
-|             | ResNet101    | 91.12%  | 42.66M   |
-|             | ResNet152    | 90.73%  | 58.38M   |
-| DenseNet    | DenseNet121  | 91.67%  | 3.27M    |
-|             | DenseNet161  | 92.50%  | 12.30M   |
-|             | DenseNet169  | 92.26%  | 5.99M    |
-|             | DenseNet201  | 92.04%  | 8.5M     |
-| GoogleNet   | GoogleNet    | 85.31%  | 6.07M    |
-| Inception   | Inception V3 | 92.87%  | 19.33M   |
+| AlexNet     | AlexNet      | 89.67%  | 27.31M   |
+| VGG         | VGG11        | 91.49%  | 14.50M   |
+|             | VGG13        | 93.66%  | 14.68M   |
+|             | VGG16        | 93.42%  | 20M      |
+|             | VGG19        | 92.87%  | 25.31M   |
+| ResNet      | ResNet18     | 92.36%  | 11.19M   |
+|             | ResNet34     | 92.39%  | 21.31M   |
+|             | ResNet50     | 91.86%  | 23.59M   |
+|             | ResNet101    | 91.52%  | 42.66M   |
+|             | ResNet152    | 91.30%  | 58.38M   |
+| DenseNet    | DenseNet121  | 91.86%  | 3.27M    |
+|             | DenseNet161  | %  | 12.30M   |
+|             | DenseNet169  | %  | 5.99M    |
+|             | DenseNet201  | %  | 8.5M     |
+| GoogleNet   | GoogleNet    | %  | 6.07M    |
+| Inception   | Inception V3 | %  | 19.33M   |
 
 
 ## Training History
 * AlexNet:
 
-![AlexNet](history/alexnet-acc-0.8834.png)
+![AlexNet](history/alexnet-acc-0.8967.png)
 
 * VGG13:
 
-![VGG13](history/vgg13-acc-0.9348.png)
+![VGG13](history/vgg13-acc-0.9366.png)
 
 * ResNet34:
 
-![ResNet34](history/resnet34-acc-0.9284.png)
-
-* DenseNet161:
-
-![DenseNet161](history/densenet161-acc-0.9250.png)
-
-* Inception-V3:
-
-![Inception-V3](history/inceptionv3-acc-0.9287.png)
+![ResNet34](history/resnet34-acc-0.9239.png)
 
 
 ## Latest Updates
+* 2019, Aug 20:
+  * Apply **1-Cycle** for Learning Rate Scheduler [[paper]](https://arxiv.org/pdf/1708.07120.pdf)
+  * Re-train all models with only 50 epochs and still achieve comparable accurracy or over higher
+
+* 2019, Aug 16:
+  * Apply LR scheduler built-in module from MXNet
+
 * 2019, Aug 13:
   * Implement and Test with all **Inception V3** architectures [[paper]](https://arxiv.org/pdf/1512.00567.pdf)
 
