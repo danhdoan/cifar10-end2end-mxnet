@@ -12,6 +12,13 @@ Besides, Batch Normalization and Drop Out layers are applied whenever possible
 to increase the Accuracy and avoid Overfitting.
 
 ## Learning Rate Scheduler
+1-Cycle schedule is utilized in the training procedure. The value of 1-Cycle's parameters are analyzed after performing LR range test.
+In my schedule, the Triangle cycle part governs 40 epochs and the Cool-Down follows in the last 10 epochs. Depicting in the following figure:
+
+![LRs](lr-schedule.png)
+
+
+In the previous version, Step Decay Schedule was applied as below:
   * Epoch [0, 40): LR = 0.1
   * Epoch [40, 70): LR = 0.01
   * Epoch [70, 100): LR = 0.001
@@ -31,11 +38,11 @@ to increase the Accuracy and avoid Overfitting.
 |             | ResNet101    | 91.52%  | 42.66M   |
 |             | ResNet152    | 91.30%  | 58.38M   |
 | DenseNet    | DenseNet121  | 91.86%  | 3.27M    |
-|             | DenseNet161  | %  | 12.30M   |
-|             | DenseNet169  | %  | 5.99M    |
-|             | DenseNet201  | %  | 8.5M     |
-| GoogleNet   | GoogleNet    | %  | 6.07M    |
-| Inception   | Inception V3 | %  | 19.33M   |
+|             | DenseNet161  | 92.69%  | 12.30M   |
+|             | DenseNet169  | 91.31%  | 5.99M    |
+|             | DenseNet201  | 91.61%  | 8.5M     |
+| GoogleNet   | GoogleNet    | 86.91%  | 6.07M    |
+| Inception   | Inception V3 | 93.95%  | 19.33M   |
 
 
 ## Training History
@@ -51,6 +58,13 @@ to increase the Accuracy and avoid Overfitting.
 
 ![ResNet34](history/resnet34-acc-0.9239.png)
 
+* DenseNet161:
+
+![DenseNet161](history/densenet161-acc-0.9269.png)
+
+* Inception-V3:
+
+![Inception-V3](history/inceptionv3-acc-0.9395.png)
 
 ## Latest Updates
 * 2019, Aug 20:

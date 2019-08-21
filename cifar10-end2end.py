@@ -7,12 +7,15 @@
 
 
 import os
+import math
 
+get_ipython().run_line_magic('matplotlib', 'inline')
 import matplotlib.pyplot as plt
 
 from altusi import utils
 import altusi.utils.visualizer as vis
 import altusi.configs.config as cfg
+from altusi import learning
 from altusi.utils.logger import *
 
 
@@ -60,6 +63,14 @@ test_dataset = CIFAR10(train=False)
 LOG(INFO, 'Dataset loading done')
 
 
+# In[5]:
+
+
+X, y = train_dataset[:10]
+
+vis.show_images(X, 1, 10, titles=[cfg.CIFAR_CLASSES[cls] for cls in y])
+
+
 # ### 2.3 Define Data Loaders
 
 # In[6]:
@@ -85,14 +96,16 @@ LOG(INFO, 'Data Loaders defining done')
 
 # ## 3. Setup Training System
 
-# In[7]:
+# ### 3.1 Define CNN model
+
+# In[8]:
 
 
 from altusi.models import AlexNet
 from altusi.models import VGG11, VGG13, VGG16, VGG19
 from altusi.models import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
 from altusi.models import DenseNet121, DenseNet161, DenseNet169, DenseNet201
-from altusi.models import GoogleNet
+from altusi.models import GoogleNet, InceptionV3
 
 # AlexNet architecture
 # net = AlexNet(nclasses=cfg.CIFAR_NCLASSES); model_name = 'AlexNet'
@@ -117,28 +130,28 @@ from altusi.models import GoogleNet
 # net = DenseNet201(nclasses=cfg.CIFAR_NCLASSES); model_name = 'DenseNet201'
 
 
-# GoogleNet architecture
-net = GoogleNet(nclasses=cfg.CIFAR_NCLASSES); model_name = 'GoogleNet'
+# Inception architecture
+# net = GoogleNet(nclasses=cfg.CIFAR_NCLASSES); model_name = 'GoogleNet'
+net = InceptionV3(nclasses=cfg.CIFAR_NCLASSES); model_name = 'InceptionV3'
+
 
 LOG(INFO, '{} Network setup done'.format(model_name))
 
 
-# In[8]:
+# #### 3.1.1 Test CNN model
+
+# In[9]:
 
 
 net.hybridize()
-net.initialize()
+net.initialize(force_reinit=True)
 
 X = nd.random.uniform(shape=(1, 3, 32, 32))
 
 net(X)
 
 
-# In[9]:
-
-
-net
-
+# ### 3.2 Set device
 
 # In[10]:
 
@@ -148,27 +161,52 @@ ctx = context.gpu(0) if context.num_gpus() else context.cpu()
 LOG(INFO, 'Device in Use:', ctx)
 
 
+# ### 3.3 Define Learning Rate Scheduler
+
 # In[11]:
 
 
+# learning rate scheduler
+iter_per_epochs = math.ceil(len(train_dataset) / BATCH_SIZE)
+niterations = cfg.NEPOCHS * iter_per_epochs
+
+lr_scheduler = learning.OneCycleScheduler(start_lr=0.01, max_lr=0.05,
+                                          cycle_length=40*iter_per_epochs, 
+                                          cooldown_length=niterations - 40*iter_per_epochs, 
+                                          finish_lr=0.001)
+
+iters = [i+1 for i in range(iter_per_epochs * cfg.NEPOCHS)]
+
+lrs = [lr_scheduler(i) for i in iters]
+
+vis.plot(iters, lrs, figsize=(8, 6))
+
+
+# ### 3.4 Define Criterion, Optimizer and Trainer
+
+# In[12]:
+
+
+# loss function
 criterion = gluon.loss.SoftmaxCrossEntropyLoss()
-optimizer = 'sgd'
+
+
+# optimizer
+optimizer = mx.optimizer.SGD(momentum=cfg.MOMENTUM, 
+                             wd=cfg.WD, 
+                             lr_scheduler=lr_scheduler)
 
 net.initialize(init=mx.init.Xavier(), ctx=ctx, force_reinit=True)
 net.hybridize()
 
-trainer = gluon.Trainer(
-    net.collect_params(),
-    optimizer,
-    {'learning_rate':cfg.LR, 'wd':cfg.WD, 'momentum':cfg.MOMENTUM}
-)
+trainer = gluon.Trainer(net.collect_params(), optimizer)
 
 LOG(INFO, 'Training system setup done')
 
 
 # ## 4. Training Procedure
 
-# In[12]:
+# In[13]:
 
 
 def evaluate_accuracy_loss(net, loader, criterion, ctx):
@@ -189,7 +227,7 @@ def evaluate_accuracy_loss(net, loader, criterion, ctx):
     return metric.get(), loss / sample_cnt
 
 
-# In[13]:
+# In[14]:
 
 
 animator = vis.Animator(
@@ -199,9 +237,6 @@ animator = vis.Animator(
     figsize=(8, 6)
 )
 
-LR_DECAY_EPOCHS = [40, 70] + [np.inf]
-lr_decay_idx = 0
-
 train_metric = mx.metric.Accuracy()
 best_val_acc = 0
 
@@ -209,11 +244,7 @@ for epoch in range(cfg.NEPOCHS):
     train_metric.reset()
     train_loss_total = 0
     sample_cnt = 0
-    
-    if epoch == LR_DECAY_EPOCHS[lr_decay_idx]:
-        trainer.set_learning_rate(trainer.learning_rate * cfg.LR_DECAY_FACTOR)
-        lr_decay_idx += 1
-        
+           
     for i, (X, y) in enumerate(train_loader):
         X, y = X.as_in_context(ctx), y.as_in_context(ctx)
         
@@ -260,6 +291,120 @@ LOG(INFO, 'Training Procedure done')
 
 # ### 5.1 Load Trained Model
 
+# In[15]:
+
+
+from altusi.models import AlexNet
+from altusi.models import VGG11, VGG13, VGG16, VGG19
+from altusi.models import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
+from altusi.models import DenseNet121, DenseNet161, DenseNet169, DenseNet201
+from altusi.models import GoogleNet, InceptionV3
+
+# set device
+ctx = context.gpu(0) if context.num_gpus() else context.cpu()
+
+LOG(INFO, 'Device in Use:', ctx)
+
+# change to your trained models
+trained_model_name = 'alexnet-epoch-50-acc-0.8967.params'
+trained_model_name = 'vgg11-epoch-50-acc-0.9149.params'
+trained_model_name = 'vgg13-epoch-50-acc-0.9366.params'
+trained_model_name = 'vgg16-epoch-50-acc-0.9342.params'
+trained_model_name = 'vgg19-epoch-50-acc-0.9287.params'
+trained_model_name = 'resnet18-epoch-50-acc-0.9236.params'
+trained_model_name = 'resnet34-epoch-49-acc-0.9239.params'
+trained_model_name = 'resnet50-epoch-50-acc-0.9186.params'
+trained_model_name = 'resnet101-epoch-50-acc-0.9152.params'
+trained_model_name = 'resnet152-epoch-50-acc-0.9130.params'
+trained_model_name = 'densenet121-epoch-50-acc-0.9186.params'
+trained_model_name = 'densenet161-epoch-50-acc-0.9269.params'
+trained_model_name = 'densenet169-epoch-50-acc-0.9131.params'
+trained_model_name = 'densenet201-epoch-49-acc-0.9161.params'
+trained_model_name = 'googlenet-epoch-50-acc-0.8691.params'
+trained_model_name = 'inceptionv3-epoch-50-acc-0.9395.params'
+trained_model_path = os.path.join(cfg.CHECKPOINTS, trained_model_name)
+
+# AlexNet architecture
+#trained_net = AlexNet(nclasses=cfg.CIFAR_NCLASSES)
+
+# VGG architecture
+# trained_net = VGG11(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = VGG13(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = VGG16(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = VGG19(nclasses=cfg.CIFAR_NCLASSES)
+
+# ResNet architecture
+# trained_net = ResNet18(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet34(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet50(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet101(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = ResNet152(nclasses=cfg.CIFAR_NCLASSES)
+
+# DenseNet architecture
+# trained_net = DenseNet121(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = DenseNet161(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = DenseNet169(nclasses=cfg.CIFAR_NCLASSES)
+# trained_net = DenseNet201(nclasses=cfg.CIFAR_NCLASSES)
+
+# Inception architecture
+# trained_net = GoogleNet(nclasses=cfg.CIFAR_NCLASSES)
+trained_net = InceptionV3(nclasses=cfg.CIFAR_NCLASSES)
+
+# load network's parameter to specific hardware
+trained_net.load_parameters(trained_model_path, ctx=ctx)
+
+LOG(INFO, 'Training model loading done')
+
+
+# ### 5.2 Test with Random Images
+
+# In[16]:
+
+
+for X, y in test_loader:
+    break
+
+rnd_idx = np.random.choice(BATCH_SIZE, 10, replace=False)
+
+
+# In[17]:
+
+
+test_images = X[rnd_idx].as_in_context(ctx)
+y_hat = trained_net(test_images).argmax(axis=1).astype('int32').asnumpy()
+y_preds = [cfg.CIFAR_CLASSES[cls] for cls in y_hat]
+
+
+# In[18]:
+
+
+_dataset = CIFAR10(train=False)
+_loader = gluon.data.DataLoader(test_dataset,
+                                batch_size=BATCH_SIZE,
+                                num_workers=4)
+
+for X, y in _loader:
+    break
+test_images = X[rnd_idx]
+
+
+# #### Results predicted by Trained Network
+
+# In[19]:
+
+
+vis.show_images(test_images, 1, 10, y_preds)
+
+
+# #### Ground Truth from Dataset
+
+# In[20]:
+
+
+vis.show_images(test_images, 1, 10, [cfg.CIFAR_CLASSES[cls] for cls in y[rnd_idx].asnumpy()])
+
+
+# In[ ]:
 
 
 

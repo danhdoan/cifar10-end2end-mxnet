@@ -57,7 +57,15 @@ class LRFinder():
         lrs = [result[0] for result in self.results]
         losses = [result[1] for result in self.results]
 
+        min_idx = 0
+        for i, loss in enumerate(losses):
+            if loss < losses[min_idx]:
+                min_idx = i
+
+        min_y = losses[min_idx]
+        avg_y = sum(losses[:min_idx+1]) / (min_idx+1)
+
         vis.plot(lrs, losses, title='LR Finder',
                  xlabel='lr', ylabel='loss',
-                 xscale='log', yscale='log', figsize=figsize)
+                 xscale='log', figsize=figsize, ylim=[min_y, avg_y*1.1])
 
