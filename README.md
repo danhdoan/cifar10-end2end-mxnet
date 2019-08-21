@@ -1,5 +1,7 @@
 # CIFAR10-End2End-MXNet
 
+Achieved > 94% of accurracy for CIFAR10 dataset with only 50 epochs.
+
 By Danh Doan
 
 ## Introduction
@@ -17,11 +19,6 @@ In my schedule, the Triangle cycle part governs 40 epochs and the Cool-Down foll
 
 ![LRs](lr-schedule.png)
 
-
-In the previous version, Step Decay Schedule was applied as below:
-  * Epoch [0, 40): LR = 0.1
-  * Epoch [40, 70): LR = 0.01
-  * Epoch [70, 100): LR = 0.001
 
 
 ## Current Results
@@ -42,7 +39,7 @@ In the previous version, Step Decay Schedule was applied as below:
 |             | DenseNet169  | 91.31%  | 5.99M    |
 |             | DenseNet201  | 91.61%  | 8.5M     |
 | GoogleNet   | GoogleNet    | 86.91%  | 6.07M    |
-| Inception   | Inception V3 | 93.95%  | 19.33M   |
+| Inception   | Inception V3 | 94.25%  | 19.33M   |
 
 
 ## Training History
@@ -64,7 +61,8 @@ In the previous version, Step Decay Schedule was applied as below:
 
 * Inception-V3:
 
-![Inception-V3](history/inceptionv3-acc-0.9395.png)
+![Inception-V3](history/inceptionv3-acc-0.9425.png)
+
 
 ## Latest Updates
 * 2019, Aug 20:
