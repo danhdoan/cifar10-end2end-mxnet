@@ -25,13 +25,13 @@ In my schedule, the Triangle cycle part governs 40 epochs and the Cool-Down foll
 |Architecture | Model        | Accuracy| # Params |
 |-------------|--------------|---------|----------|
 | AlexNet     | AlexNet      | 89.67%  | 27.31M   |
-| VGG         | VGG11        | 91.49%  | 14.50M   |
+| VGG         | VGG11        | 91.60%  | 14.50M   |
 |             | VGG13        | 93.66%  | 14.68M   |
 |             | VGG16        | 93.42%  | 20M      |
 |             | VGG19        | 92.87%  | 25.31M   |
 | ResNet      | ResNet18     | 92.36%  | 11.19M   |
 |             | ResNet34     | 92.39%  | 21.31M   |
-|             | ResNet50     | 91.86%  | 23.59M   |
+|             | ResNet50     | 92.04%  | 23.59M   |
 |             | ResNet101    | 91.52%  | 42.66M   |
 |             | ResNet152    | 91.30%  | 58.38M   |
 | DenseNet    | DenseNet121  | 91.86%  | 3.27M    |
